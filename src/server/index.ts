@@ -1,5 +1,13 @@
+import amqp from 'amqplib'
+
 async function main() {
-  console.log("Starting Peril server...");
+  const rabbitConnString = 'amqp://guest:guest@localhost:5672/'
+  const conn = await amqp.connect(rabbitConnString)
+  console.log("connection was successful.")
+  process.on('exit', async()=>{
+    console.log('The program is shutting down')
+    await conn.close()
+  })
 }
 
 main().catch((err) => {
