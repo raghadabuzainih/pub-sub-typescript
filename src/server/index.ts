@@ -1,5 +1,5 @@
 import amqp from 'amqplib'
-import { publishJSON } from '../internal/pubsub.js'
+import { declareAndBind, publishJSON, SimpleQueueType } from '../internal/pubsub.js'
 import { ExchangePerilDirect, PauseKey } from '../internal/routing/routing.js'
 import { getInput, printServerHelp } from '../internal/gamelogic/gamelogic.js'
 
@@ -29,7 +29,7 @@ async function main() {
       }else console.log("i don't understand the command")
     }
   }
-
+  
   process.on('exit', async()=>{
     console.log('The program is shutting down')
     await conn.close()
